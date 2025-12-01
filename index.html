@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>江苏省从业人员健康检查合格证明</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1677ff',
+                        secondary: '#fa8c16',
+                        gray: {
+                            light: '#f5f5f5',
+                            medium: '#e5e5e5',
+                            dark: '#8c8c8c'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .card-shadow {
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            }
+            .btn-hover {
+                transition: all 0.3s ease;
+            }
+            .btn-hover:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(250, 140, 22, 0.3);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen py-8 px-4">
+    <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden card-shadow">
+        <!-- 健康证明头部 -->
+        <div class="bg-primary text-white py-4 px-6 text-center text-xl font-bold">
+            江苏省从业人员健康检查合格证明
+        </div>
+        
+        <!-- 个人信息区域 -->
+        <div class="p-6 flex flex-col md:flex-row gap-6">
+            <div class="flex-1">
+                <p class="mb-3"><span class="text-gray-dark">姓名：</span>周祥</p>
+                <p class="mb-3"><span class="text-gray-dark">性别：</span>男</p>
+                <p class="mb-3"><span class="text-gray-dark">年龄：</span>28</p>
+                <p class="mb-3"><span class="text-gray-dark">身份证：</span>32132119********2919</p>
+                <p class="mb-3"><span class="text-gray-dark">编号：</span>苏3204120992250345</p>
+                <p class="mb-3"><span class="text-gray-dark">类别：</span>食品及相关类</p>
+                <p class="mb-3"><span class="text-gray-dark">有效期：</span>2026-11-27</p>
+                <p class="mb-3"><span class="text-gray-dark">体检机构：</span>常州市武进区第五人民医院</p>
+            </div>
+            <div class="flex-shrink-0 w-32 h-40 border border-gray-medium flex flex-col">
+                <img src="https://picsum.photos/128/160" alt="个人照片" class="w-full h-32 object-cover">
+                <div class="flex-1 bg-gray-light flex items-center justify-center text-xs text-gray-dark">
+                    证件位置
+                </div>
+            </div>
+        </div>
+        
+        <!-- 保存图片链接 -->
+        <div class="px-6 mb-6 text-center">
+            <a href="#" class="text-primary text-sm hover:underline">点击保存电子健康证图片</a>
+        </div>
+        
+        <!-- 操作按钮 -->
+        <div class="px-6 space-y-4 mb-8">
+            <button id="mailBtn" class="w-full py-3 bg-secondary text-white rounded-md font-medium btn-hover flex items-center justify-center">
+                <i class="fa fa-envelope-o mr-2"></i>申请邮寄
+            </button>
+            <button id="bindBtn" class="w-full py-3 bg-secondary text-white rounded-md font-medium btn-hover flex items-center justify-center">
+                <i class="fa fa-user-o mr-2"></i>绑定身份获取通知
+            </button>
+        </div>
+        
+        <!-- 底部功能区 -->
+        <div class="border-t border-gray-medium flex">
+            <button id="reserveBtn" class="flex-1 py-4 text-center text-gray-dark hover:bg-gray-light transition-colors">
+                <i class="fa fa-calendar-o block mb-1"></i>体检预约
+            </button>
+            <div class="w-px bg-gray-medium"></div>
+            <button id="hospitalBtn" class="flex-1 py-4 text-center text-gray-dark hover:bg-gray-light transition-colors">
+                <i class="fa fa-hospital-o block mb-1"></i>医院介绍
+            </button>
+        </div>
+    </div>
+    
+    <!-- 弹窗 -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg max-w-xs w-full mx-4 overflow-hidden">
+            <div class="p-6 text-center">
+                <p id="modalText" class="text-gray-800 text-lg mb-6">提示信息</p>
+                <button id="closeBtn" class="text-primary font-medium">关闭</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 获取元素
+        const modal = document.getElementById('modal');
+        const modalText = document.getElementById('modalText');
+        const closeBtn = document.getElementById('closeBtn');
+        const mailBtn = document.getElementById('mailBtn');
+        const bindBtn = document.getElementById('bindBtn');
+        const reserveBtn = document.getElementById('reserveBtn');
+        const hospitalBtn = document.getElementById('hospitalBtn');
+        
+        // 显示弹窗
+        function showModal(text) {
+            modalText.textContent = text;
+            modal.classList.remove('hidden');
+            // 添加淡入动画
+            setTimeout(() => {
+                modal.querySelector('div').classList.add('animate-fadeIn');
+            }, 10);
+        }
+        
+        // 关闭弹窗
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+        
+        // 绑定事件
+        mailBtn.addEventListener('click', () => showModal('系统维护中，请稍后再试'));
+        bindBtn.addEventListener('click', () => showModal('系统维护中，请稍后再试'));
+        reserveBtn.addEventListener('click', () => showModal('未开通，敬请期待'));
+        hospitalBtn.addEventListener('click', () => showModal('未开通，敬请期待'));
+        closeBtn.addEventListener('click', closeModal);
+        
+        // 点击弹窗外部关闭
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        
+        // 添加动画样式
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .animate-fadeIn {
+                animation: fadeIn 0.3s ease forwards;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
